@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JavaScript Practical Questions – LO2 & LO3</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0f1a;
+    --surface: #151824;
+    --card: #1c2035;
+    --border: #2a2f4a;
+    --accent1: #4fffb0;
+    --accent2: #7c6aff;
+    --accent3: #ff6a6a;
+    --accent4: #ffc94a;
+    --accent5: #4ac8ff;
+    --text: #e8eaf6;
+    --muted: #7880a4;
+    --tag-fn: #4fffb0;
+    --tag-obj: #7c6aff;
+    --tag-arr: #ffc94a;
+    --tag-map: #4ac8ff;
+    --tag-set: #ff6a6a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, #151824 0%, #1a1040 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(124,106,255,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(79,255,176,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .school-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent1);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  h1 span { color: var(--accent2); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .meta-pill {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+  }
+
+  .meta-pill strong { color: var(--text); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+  }
+
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Main layout */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 24px;
+    position: relative;
+  }
+
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .lo-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 4px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+
+  .lo2-badge { background: rgba(124,106,255,0.15); color: var(--accent2); border: 1px solid rgba(124,106,255,0.3); }
+  .lo3-badge { background: rgba(79,255,176,0.1); color: var(--accent1); border: 1px solid rgba(79,255,176,0.25); }
+
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* Question Card */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .q-card:hover {
+    border-color: rgba(124,106,255,0.4);
+    transform: translateY(-2px);
+  }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .q-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bg);
+    background: var(--accent2);
+    border-radius: 4px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .q-lo2 .q-number { background: var(--accent2); }
+  .q-lo3 .q-number { background: var(--accent1); color: var(--bg); }
+
+  .q-title {
+    font-weight: 600;
+    font-size: 1rem;
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .q-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-fn  { background: rgba(79,255,176,0.12); color: var(--tag-fn); border: 1px solid rgba(79,255,176,0.25); }
+  .tag-obj { background: rgba(124,106,255,0.12); color: var(--tag-obj); border: 1px solid rgba(124,106,255,0.25); }
+  .tag-arr { background: rgba(255,201,74,0.12); color: var(--tag-arr); border: 1px solid rgba(255,201,74,0.25); }
+  .tag-map { background: rgba(74,200,255,0.12); color: var(--tag-map); border: 1px solid rgba(74,200,255,0.25); }
+  .tag-set { background: rgba(255,106,106,0.12); color: var(--tag-set); border: 1px solid rgba(255,106,106,0.25); }
+
+  .q-body {
+    padding: 20px 24px;
+  }
+
+  .scenario {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .q-lo3 .scenario { border-left-color: var(--accent1); }
+
+  .task-list {
+    list-style: none;
+    counter-reset: task;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .task-list li {
+    counter-increment: task;
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .task-list li::before {
+    content: counter(task, lower-alpha) ".";
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+    min-width: 18px;
+  }
+
+  .q-lo3 .task-list li::before { color: var(--accent1); }
+
+  code {
+    font-family: 'Space Mono', monospace;
+    background: rgba(255,255,255,0.07);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 12.5px;
+    color: var(--accent4);
+  }
+
+  .hint {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(255,201,74,0.06);
+    border: 1px dashed rgba(255,201,74,0.25);
+    border-radius: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .hint strong { color: var(--accent4); font-family: 'Space Mono', monospace; }
+
+  /* Difficulty */
+  .difficulty {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .diff-easy { background: rgba(79,255,176,0.1); color: var(--accent1); }
+  .diff-medium { background: rgba(255,201,74,0.1); color: var(--accent4); }
+  .diff-hard { background: rgba(255,106,106,0.1); color: var(--accent3); }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    border-top: 1px solid var(--border);
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    .q-card { break-inside: avoid; border: 1px solid #ccc; }
+    header { background: white; border-bottom: 2px solid #111; }
+    h1 span { color: #4a1aff; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="school-tag">SOS Technical High School · Kigali</div>
+  <h1>JavaScript <span>Practical</span> Questions</h1>
+  <p class="subtitle">Module SWDJF301 – JavaScript Fundamentals &nbsp;|&nbsp; Level 3 SOD</p>
+  <div class="meta-row">
+    <div class="meta-pill"><strong>LO2</strong> · Manipulate Data with JavaScript</div>
+    <div class="meta-pill"><strong>LO3</strong> · Apply JavaScript in Project</div>
+    <div class="meta-pill"><strong>Trainer:</strong> UWIMANA Thierry</div>
+    <div class="meta-pill"><strong>Year:</strong> 2025–2026</div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="dot" style="background:var(--tag-fn)"></div>Functions</div>
+  <div class="legend-item"><div class="dot" style="background:var(--tag-obj)"></div>Objects</div>
+  <div class="legend-item"><div class="dot" style="background:var(--tag-arr)"></div>Arrays</div>
+  <div class="legend-item"><div class="dot" style="background:var(--tag-map)"></div>Maps</div>
+  <div class="legend-item"><div class="dot" style="background:var(--tag-set)"></div>Sets</div>
+</div>
+
+<main>
+
+  <!-- ===== LO2 ===== -->
+  <div class="section-header">
+    <div class="lo-badge lo2-badge">LO 2</div>
+    <div class="section-title">Manipulate Data with JavaScript (IC2.4 · IC2.5 · IC2.6)</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card q-lo2">
+    <div class="q-header">
+      <div class="q-number">Q1</div>
+      <div class="q-title">Student Grade Calculator</div>
+      <div class="q-tags">
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-arr">Arrays</span>
+        <span class="tag tag-obj">Objects</span>
+      </div>
+      <span class="difficulty diff-easy">EASY</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 You are managing scores for students in a class. Each student has a name and an array of test scores.</div>
+      <ul class="task-list">
+        <li>Create an array of student objects. Each object must have a <code>name</code> (string) and a <code>scores</code> (array of numbers, e.g., 3 scores).</li>
+        <li>Write a function <code>calculateAverage(scores)</code> that takes an array of numbers and returns the average.</li>
+        <li>Write a function <code>getGrade(average)</code> that returns <code>"A"</code> (≥80), <code>"B"</code> (≥70), <code>"C"</code> (≥60), or <code>"F"</code> (below 60) using a conditional statement.</li>
+        <li>Use <code>forEach</code> to loop through each student, call both functions, and print: <code>Alice → Average: 78 → Grade: C</code>.</li>
+      </ul>
+      <div class="hint"><strong>💡 Hint:</strong> Use <code>reduce()</code> inside <code>calculateAverage</code> to sum the scores.</div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card q-lo2">
+    <div class="q-header">
+      <div class="q-number">Q2</div>
+      <div class="q-title">Product Inventory Manager</div>
+      <div class="q-tags">
+        <span class="tag tag-arr">Arrays</span>
+        <span class="tag tag-obj">Objects</span>
+        <span class="tag tag-fn">Functions</span>
+      </div>
+      <span class="difficulty diff-easy">EASY</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 A small shop keeps a list of products. Each product has a name, price, and quantity in stock.</div>
+      <ul class="task-list">
+        <li>Create an array of at least 5 product objects with properties: <code>name</code>, <code>price</code>, <code>quantity</code>.</li>
+        <li>Write a function <code>getTotalValue(products)</code> that returns the total stock value (price × quantity for each product, summed).</li>
+        <li>Write a function <code>findCheapest(products)</code> that returns the product object with the lowest price using <code>reduce()</code>.</li>
+        <li>Write a function <code>filterAffordable(products, budget)</code> that returns products whose price is ≤ the given budget using <code>filter()</code>.</li>
+        <li>Print the results of all three functions to the console.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card q-lo2">
+    <div class="q-header">
+      <div class="q-number">Q3</div>
+      <div class="q-title">Word Frequency Counter using Map</div>
+      <div class="q-tags">
+        <span class="tag tag-map">Maps</span>
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-arr">Arrays</span>
+      </div>
+      <span class="difficulty diff-medium">MEDIUM</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 A teacher wants to analyse how often each word appears in a paragraph of text.</div>
+      <ul class="task-list">
+        <li>Write a function <code>countWords(text)</code> that takes a string, splits it into words (use <code>.split(" ")</code>), and uses a <code>Map</code> to count how many times each word appears.</li>
+        <li>The function should return the Map of word counts.</li>
+        <li>Write another function <code>getMostFrequent(wordMap)</code> that loops through the Map and returns the word that appears the most times.</li>
+        <li>Test your functions with the sentence: <code>"the cat sat on the mat the cat"</code> and print both the full Map and the most frequent word.</li>
+      </ul>
+      <div class="hint"><strong>💡 Hint:</strong> Use <code>map.set(key, value)</code> and <code>map.get(key)</code>. Loop using <code>for...of map.entries()</code>.</div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card q-lo2">
+    <div class="q-header">
+      <div class="q-number">Q4</div>
+      <div class="q-title">Unique Visitors Tracker using Set</div>
+      <div class="q-tags">
+        <span class="tag tag-set">Sets</span>
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-arr">Arrays</span>
+      </div>
+      <span class="difficulty diff-medium">MEDIUM</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 A website logs every visit. The same user can visit multiple times. You need to count only unique visitors.</div>
+      <ul class="task-list">
+        <li>Given this visits array: <code>["Alice","Bob","Alice","Charlie","Bob","Alice","Diana"]</code>, write a function <code>getUniqueVisitors(visits)</code> that uses a <code>Set</code> to find unique names.</li>
+        <li>Return the number of unique visitors and the list of their names as an array (use <code>Array.from()</code> or spread operator on the Set).</li>
+        <li>Write a second function <code>getVisitCount(visits, name)</code> that uses <code>filter()</code> to count how many times a given name appears in the visits array.</li>
+        <li>Print: "Total unique visitors: 4", then list each unique visitor's name and visit count.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card q-lo2">
+    <div class="q-header">
+      <div class="q-number">Q5</div>
+      <div class="q-title">Library Book System</div>
+      <div class="q-tags">
+        <span class="tag tag-obj">Objects</span>
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-arr">Arrays</span>
+        <span class="tag tag-map">Maps</span>
+      </div>
+      <span class="difficulty diff-medium">MEDIUM</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 A school library needs to track its book collection and which books are borrowed.</div>
+      <ul class="task-list">
+        <li>Create an array of book objects: <code>{ title, author, genre, available }</code> (at least 6 books, some with <code>available: false</code>).</li>
+        <li>Write a function <code>getAvailableBooks(books)</code> using <code>filter()</code> that returns only available books.</li>
+        <li>Write a function <code>groupByGenre(books)</code> that uses a <code>Map</code> to group books by genre. The Map keys should be genre names and values should be arrays of book titles.</li>
+        <li>Write an arrow function <code>borrowBook = (books, title) =&gt;</code> that finds the book with the given title, sets its <code>available</code> to <code>false</code>, and returns a confirmation message. If the book isn't found or is unavailable, return an error message.</li>
+        <li>Display the genre map using <code>for...of</code>.</li>
+      </ul>
+      <div class="hint"><strong>💡 Hint:</strong> Use <code>find()</code> to locate a specific book by title.</div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card q-lo2">
+    <div class="q-header">
+      <div class="q-number">Q6</div>
+      <div class="q-title">Friends Tag Deduplicator using Set</div>
+      <div class="q-tags">
+        <span class="tag tag-set">Sets</span>
+        <span class="tag tag-arr">Arrays</span>
+        <span class="tag tag-fn">Functions</span>
+      </div>
+      <span class="difficulty diff-easy">EASY</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 A social app allows users to add interest tags to their profile, but duplicates keep being added by mistake.</div>
+      <ul class="task-list">
+        <li>Given this tags array: <code>["music","sports","music","art","coding","sports","coding","travel"]</code>, write a function <code>cleanTags(tags)</code> that removes all duplicates and returns a sorted, clean array of unique tags.</li>
+        <li>Use a <code>Set</code> to handle deduplication, then convert back to an array and sort alphabetically.</li>
+        <li>Write a function <code>commonTags(tagsA, tagsB)</code> that finds the tags two users have in common. Use two Sets and check intersection.</li>
+        <li>Test with a second user's tags: <code>["art","gaming","music","travel","coding"]</code> and print the common tags.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card q-lo2">
+    <div class="q-header">
+      <div class="q-number">Q7</div>
+      <div class="q-title">Phonebook using Map</div>
+      <div class="q-tags">
+        <span class="tag tag-map">Maps</span>
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-obj">Objects</span>
+      </div>
+      <span class="difficulty diff-medium">MEDIUM</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 Build a basic phonebook application using a Map to store and manage contacts.</div>
+      <ul class="task-list">
+        <li>Create a <code>Map</code> called <code>phonebook</code>. Each key is a contact name (string) and the value is an object: <code>{ phone, email }</code>.</li>
+        <li>Write a function <code>addContact(name, phone, email)</code> that adds or updates a contact. If the contact already exists, print "Contact updated", else print "Contact added".</li>
+        <li>Write a function <code>findContact(name)</code> that retrieves a contact by name. If not found, return "Contact not found".</li>
+        <li>Write a function <code>deleteContact(name)</code> that removes a contact. Print a confirmation or "Contact not found".</li>
+        <li>Write a function <code>listAllContacts()</code> that prints all contacts in the format: <code>Name → phone: ... | email: ...</code></li>
+        <li>Test all four functions with at least 3 contacts.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== LO3 ===== -->
+  <div class="section-header">
+    <div class="lo-badge lo3-badge">LO 3</div>
+    <div class="section-title">Apply JavaScript in Project (IC3.4 – JS in Full Projects)</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card q-lo3">
+    <div class="q-header">
+      <div class="q-number">Q8</div>
+      <div class="q-title">Student Management Mini-App (HTML + JS)</div>
+      <div class="q-tags">
+        <span class="tag tag-arr">Arrays</span>
+        <span class="tag tag-obj">Objects</span>
+        <span class="tag tag-fn">Functions</span>
+      </div>
+      <span class="difficulty diff-medium">MEDIUM</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 Build a simple web page where a teacher can add students and view their class list dynamically.</div>
+      <ul class="task-list">
+        <li>Create an HTML page with a form: fields for student <code>name</code>, <code>age</code>, and <code>class</code>, plus an "Add Student" button.</li>
+        <li>In your JavaScript file, maintain a <code>students</code> array. Each student added is pushed as an object: <code>{ name, age, class }</code>.</li>
+        <li>Write a function <code>renderStudents()</code> that reads the array and updates a <code>&lt;ul&gt;</code> in the DOM, showing each student's details.</li>
+        <li>Add a "Remove" button for each student in the list. Clicking it should remove that student from the array (use <code>splice()</code> or <code>filter()</code>) and call <code>renderStudents()</code> again.</li>
+        <li>Validate the form: name and class must not be empty; age must be a number between 10 and 25. Show an error message if validation fails.</li>
+      </ul>
+      <div class="hint"><strong>💡 Hint:</strong> Use <code>document.getElementById()</code> to get input values and <code>innerHTML</code> to update the list.</div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card q-lo3">
+    <div class="q-header">
+      <div class="q-number">Q9</div>
+      <div class="q-title">Shopping Cart with Map</div>
+      <div class="q-tags">
+        <span class="tag tag-map">Maps</span>
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-obj">Objects</span>
+        <span class="tag tag-arr">Arrays</span>
+      </div>
+      <span class="difficulty diff-hard">HARD</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 Build a shopping cart feature for an e-commerce project page. Products are listed on the page and users can add them to a cart.</div>
+      <ul class="task-list">
+        <li>Define an array of at least 5 product objects: <code>{ id, name, price }</code>. Render them as cards on the page using DOM manipulation.</li>
+        <li>Use a <code>Map</code> as the cart (key = product <code>id</code>, value = <code>{ name, price, quantity }</code>). When the user clicks "Add to Cart" on a product, increase the quantity if it already exists in the Map, otherwise add it.</li>
+        <li>Write a function <code>renderCart()</code> that displays all cart items in a sidebar, showing name, quantity, unit price, and subtotal per item.</li>
+        <li>Write a function <code>getCartTotal(cart)</code> that iterates the Map and returns the grand total.</li>
+        <li>Add a "Remove" button per cart item that deletes it from the Map and updates the display. Display the total at the bottom of the cart.</li>
+      </ul>
+      <div class="hint"><strong>💡 Hint:</strong> Use <code>map.has(id)</code> before deciding to add or update. Use <code>map.delete(id)</code> to remove.</div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card q-lo3">
+    <div class="q-header">
+      <div class="q-number">Q10</div>
+      <div class="q-title">Quiz App with Score Tracking</div>
+      <div class="q-tags">
+        <span class="tag tag-arr">Arrays</span>
+        <span class="tag tag-obj">Objects</span>
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-set">Sets</span>
+      </div>
+      <span class="difficulty diff-hard">HARD</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 Build an interactive multiple-choice quiz as your project. Questions are stored in an array; the user answers each one and sees their final score.</div>
+      <ul class="task-list">
+        <li>Create an array of at least 5 question objects: <code>{ question, options: [], answer }</code> where <code>options</code> is an array of 4 strings and <code>answer</code> is the correct option.</li>
+        <li>Use a <code>Set</code> called <code>answeredQuestions</code> to track which question indices have been answered (preventing re-answering).</li>
+        <li>Write a function <code>renderQuestion(index)</code> that displays the current question and its options as radio buttons on the page.</li>
+        <li>Write a function <code>submitAnswer(index, selected)</code> that checks the answer, adds the index to the Set, increments a score variable if correct, and shows "Correct ✓" or "Wrong ✗" feedback.</li>
+        <li>Write a function <code>showResults()</code> that displays the final score (e.g. "You scored 4 out of 5") and lists which questions were answered correctly using the Set.</li>
+        <li>Add a "Next" button to navigate through questions, and a "Submit Quiz" button at the end.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card q-lo3">
+    <div class="q-header">
+      <div class="q-number">Q11</div>
+      <div class="q-title">Employee Directory with Search & Filter</div>
+      <div class="q-tags">
+        <span class="tag tag-arr">Arrays</span>
+        <span class="tag tag-obj">Objects</span>
+        <span class="tag tag-fn">Functions</span>
+        <span class="tag tag-map">Maps</span>
+      </div>
+      <span class="difficulty diff-hard">HARD</span>
+    </div>
+    <div class="q-body">
+      <div class="scenario">📌 Build a project page for a company employee directory with search and department filtering.</div>
+      <ul class="task-list">
+        <li>Create an array of at least 8 employee objects: <code>{ id, name, role, department, salary }</code>.</li>
+        <li>Write a function <code>searchEmployees(query)</code> that uses <code>filter()</code> to return employees whose <code>name</code> or <code>role</code> includes the search query (case-insensitive). Render the results in the DOM.</li>
+        <li>Use a <code>Map</code> to group employees by department. Write <code>groupByDepartment(employees)</code> and render a dropdown of department names. When a department is selected, show only its employees.</li>
+        <li>Write an arrow function <code>getSalarySummary = (employees) =&gt;</code> that returns an object with <code>highest</code>, <code>lowest</code>, and <code>average</code> salary values using <code>reduce()</code> and <code>Math.max/min</code>.</li>
+        <li>Display the salary summary on the page. Add an "Export List" button that uses <code>map()</code> to convert the filtered employees to a comma-separated string and displays it in a <code>&lt;textarea&gt;</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  SWDJF301 JavaScript Fundamentals &nbsp;·&nbsp; SOS Technical High School Kigali &nbsp;·&nbsp; 2025–2026
+</footer>
+
+</body>
+</html>
