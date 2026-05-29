@@ -36,16 +36,22 @@
 
       <!-- Small Cards -->
       <div class="mt-10 flex justify-center gap-4 flex-wrap">
-        <div class="bg-white/20 backdrop-blur-sm px-4 py-3 rounded-xl">
-          🌋 Volcanoes
+        <div class="bg-white/20 backdrop-blur-sm px-30 py-10 rounded-xl">
+         Land of a thousand hills!<br>
+         Live where every moment iss breathtaking.<br>
+         Enjoy beautiful landscapes and views!
         </div>
 
-        <div class="bg-white/20 backdrop-blur-sm px-4 py-3 rounded-xl">
-          🦍 Gorillas
+        <div class="bg-white/20 backdrop-blur-sm px-30 py-10 rounded-xl">
+         Peaceful beautiful country!<br>
+         Secure to visit for anyone to visit.<br>
+         Very amazing to live in!
         </div>
 
-        <div class="bg-white/20 backdrop-blur-sm px-4 py-3 rounded-xl">
-          🌿 Nature
+        <div class="bg-white/20 backdrop-blur-sm px-30 py-10 rounded-xl">
+          Come explore us! <br>
+          And discover the beauty of our country.<br>
+          Find beautiful places to try and visit!
         </div>
       </div>
     </div>
