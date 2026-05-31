@@ -12,7 +12,7 @@ import { RouterLink } from 'vue-router'
       <li><RouterLink to="/services" class="hover:text-yellow-300">Services</RouterLink></li>
 
       <li class="relative group">
-        <a href="#" class="hover:text-yellow-300">Gallery <span>▾</span></a>
+        <a href="/gallery" class="hover:text-yellow-300">Gallery <span>▾</span></a>
         <ul class="absolute left-0 mt-2 w-40 bg-green-800 text-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-50">
           <li><RouterLink to="/gallery/images" class="block px-4 py-2 hover:bg-green-700">Images</RouterLink></li>
           <li><RouterLink to="/gallery/videos" class="block px-4 py-2 hover:bg-green-700">Videos</RouterLink></li>
@@ -20,7 +20,7 @@ import { RouterLink } from 'vue-router'
       </li>
 
       <li class="relative group">
-        <a href="#" class="hover:text-yellow-300">Destination <span>▾</span></a>
+        <a href="/destination" class="hover:text-yellow-300">Destination <span>▾</span></a>
         <ul class="absolute left-0 mt-2 w-40 bg-green-800 text-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-50">
           <li><RouterLink to="/kigali" class="block px-4 py-2 hover:bg-green-700">Kigali</RouterLink></li>
           <li><RouterLink to="/south" class="block px-4 py-2 hover:bg-green-700">South</RouterLink></li>
