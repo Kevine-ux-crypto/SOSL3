@@ -1,5 +1,5 @@
 <template>
-  <div class="text-white min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('/src/assets/Rda.png')">
+  <div class="text-white min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('/src/assets/kgl.png')">
 
     <!-- Hero -->
     <section class="bg-black/60 py-36 text-center px-6">

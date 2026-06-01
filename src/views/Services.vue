@@ -9,7 +9,7 @@
       <h1 class="text-5xl font-bold text-white">Our Services</h1>
       <p class="text-gray-300 mt-4 text-lg">Everything you need for an unforgettable Rwanda experience</p>
     </section>
-
+    
     <!-- Services Cards - green overlay -->
     <section class="bg-green-900/70 px-16 py-20">
       <h2 class="text-center text-3xl font-bold text-white mb-2">What We Offer</h2>

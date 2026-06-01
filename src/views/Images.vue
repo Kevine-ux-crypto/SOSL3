@@ -50,6 +50,7 @@
           >
             <!-- Replace with <img :src="chunk[0].src" class="w-full h-full object-cover" /> -->
             <div class="w-full h-full bg-green-950/80 flex items-center justify-center" style="min-height: 420px;">
+                
               <div class="text-center">
                 <div class="text-8xl mb-4 opacity-80">{{ chunk[0].icon }}</div>
                 <p class="text-white font-semibold text-lg">{{ chunk[0].caption }}</p>
